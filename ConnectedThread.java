@@ -15,6 +15,7 @@ import java.io.OutputStream;
 import static com.esark.excavator.GameScreen.angle;
 import static com.esark.excavator.GameScreen.quadrant;
 import static com.esark.excavator.GameScreen.vector;
+import static com.esark.excavator.GameScreen.xR;
 import static com.esark.excavator.GameScreen.yR;
 
 
@@ -72,6 +73,12 @@ public class ConnectedThread extends Thread {
             }
             else if(yR < 0){
                 write("D");
+            }
+            if(xR > 0){
+                write("R");
+            }
+            else if(xR < 0){
+                write("L");
             }
 /*
             write("E");
