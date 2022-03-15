@@ -24,6 +24,8 @@ public class GameScreen extends Screen implements Input {
     int yTouchLeft = 300;
     int xTouchRight = 550;
     int yTouchRight = 300;
+    public static int xR = 0;
+    public static int yR = 0;
     int xTouch2 = 0;
     int yTouch2 = 0;
     int xPrevLeft = 150;
@@ -183,6 +185,8 @@ public class GameScreen extends Screen implements Input {
                     g.drawLine(150, 300, xTouchLeft, yTouchLeft, 0);
                     g.drawCircle(xTouchRight, yTouchRight, 45);
                     g.drawLine(550, 300, xTouchRight, yTouchRight, 0);
+                    xR = xTouchRight - 550;
+                    yR = 300 - yTouchRight;
                     g.drawCircle(290, yTrackLeft, 45);
                     g.drawCircle(425, yTrackRight, 45);
                 }

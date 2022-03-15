@@ -4,6 +4,7 @@ package com.esark.excavator;
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 
 import com.esark.framework.AndroidGame;
 
@@ -14,6 +15,7 @@ import java.io.OutputStream;
 import static com.esark.excavator.GameScreen.angle;
 import static com.esark.excavator.GameScreen.quadrant;
 import static com.esark.excavator.GameScreen.vector;
+import static com.esark.excavator.GameScreen.yR;
 
 
 public class ConnectedThread extends Thread {
@@ -23,6 +25,7 @@ public class ConnectedThread extends Thread {
     private final Handler mHandler;
     String ad0, ad1, ad2;
     String vd0, vd1, vd2;
+
 
 
     public ConnectedThread(BluetoothSocket socket, Handler handler) {
@@ -63,6 +66,34 @@ public class ConnectedThread extends Thread {
 
                 break;
             }
+            Log.d("ADebugTag", "yR: " + yR);
+            if(yR > 0){
+                write("U");
+            }
+            else if(yR < 0){
+                write("D");
+            }
+/*
+            write("E");
+            write("R");
+            write("I");
+            write("K");
+            write(" ");
+            write("I");
+            write("S");
+            write(" ");
+            write("T");
+            write("H");
+            write("E");
+            write(" ");
+            write("B");
+            write("E");
+            write("S");
+            write("T");
+            write(" ");
+*/
+
+            /*
             switch((int)angle%10) {
                 case 0 :
                     ad0 = "0";
@@ -169,7 +200,7 @@ public class ConnectedThread extends Thread {
                 default :
                     ad2 = "-";
             }
-            /*
+
             switch((int)vector%10) {
                 case 0 :
                     vd0 = "0";
@@ -275,7 +306,7 @@ public class ConnectedThread extends Thread {
                     break;
                 default :
                     vd2 = "-";
-            }*/
+            }
             if(!(ad2 == "0" && ad1 == "0" && ad0 == "0")) {
                 write("A");
                 write(ad2);
@@ -284,7 +315,7 @@ public class ConnectedThread extends Thread {
                 write("Q");
                 write(quadrant);
             }
-            /*
+
             if(!(vd2 == "0" && vd1 == "0" && vd0 == "0")) {
                 write("V");
                 write(vd2);
