@@ -3,6 +3,7 @@ package com.esark.excavator;
 
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
+
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -13,8 +14,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import static com.esark.excavator.GameScreen.quadrant;
-import static com.esark.excavator.GameScreen.scaledXR;
-import static com.esark.excavator.GameScreen.scaledYR;
+import static com.esark.excavator.GameScreen.c;
+import static com.esark.excavator.GameScreen.b;
 
 
 public class ConnectedThread extends Thread {
@@ -22,6 +23,8 @@ public class ConnectedThread extends Thread {
     private final InputStream mmInStream;
     private final OutputStream mmOutStream;
     private final Handler mHandler;
+    public intToChars mintToChars;
+    public int returnArray;
     String ad0, ad1, ad2;
     String vd0, vd1, vd2;
 
@@ -32,7 +35,7 @@ public class ConnectedThread extends Thread {
         mHandler = handler;
         InputStream tmpIn = null;
         OutputStream tmpOut = null;
-
+        intToChars intToCharsObj = new intToChars();
         // Get the input and output streams, using temp objects because
         // member streams are final
         try {
@@ -65,41 +68,9 @@ public class ConnectedThread extends Thread {
 
                 break;
             }
-            /*
-            Log.d("ADebugTag", "scaledYR: " + scaledYR);
-            if(scaledYR > 0){
-                write("U");
-            }
-            else if(scaledYR < 0){
-                write("D");
-            }
-            if(scaledXR > 0){
-                write("R");
-            }
-            else if(scaledXR < 0){
-                write("L");
-            }
 
-             */
-/*
-            write("E");
-            write("R");
-            write("I");
-            write("K");
-            write(" ");
-            write("I");
-            write("S");
-            write(" ");
-            write("T");
-            write("H");
-            write("E");
-            write(" ");
-            write("B");
-            write("E");
-            write("S");
-            write("T");
-            write(" ");
-*/
+            returnArray = mintToChars.intToChars(c);
+            /*
 
             /*
             switch((int)angle%10) {
