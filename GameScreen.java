@@ -21,9 +21,9 @@ public class GameScreen extends Screen implements Input {
     int xTouch1 = 0;
     int yTouch1 = 0;
     int xTouchLeft = 150;
-    int yTouchLeft = 300;
-    int xTouchRight = 550;
-    int yTouchRight = 300;
+    int yTouchLeft = 275;
+    int xTouchRight = 560;
+    int yTouchRight = 275;
     public static int scaledXR = 0;
     public static int scaledYR = 0;
     int xR = 0;
@@ -33,12 +33,12 @@ public class GameScreen extends Screen implements Input {
     int xTouch2 = 0;
     int yTouch2 = 0;
     int xPrevLeft = 150;
-    int yPrevLeft = 300;
-    int xPrevRight = 550;
-    int yPrevRight = 300;
-    int xTrackLeft = 300;
+    int yPrevLeft = 275;
+    int xPrevRight = 560;
+    int yPrevRight = 275;
+    int xTrackLeft = 275;
     int yTrackLeft = 150;
-    int xTrackPrevLeft = 300;
+    int xTrackPrevLeft = 275;
     int yTrackPrevLeft = 150;
     int xTrackRight = 400;
     int yTrackRight = 150;
@@ -81,8 +81,8 @@ public class GameScreen extends Screen implements Input {
             } else {
                 g.drawPortraitPixmap(Assets.excavatorPortraitBackground, 0, 0);
             }
-            g.drawCircle(150, 300, 45);
-            g.drawCircle(550, 300, 45);
+            g.drawCircle(150, 275, 45);
+            g.drawCircle(560, 275, 45);
             g.drawCircle(290, 100, 45);
             g.drawCircle(425, 100, 45);
         }
@@ -95,9 +95,9 @@ public class GameScreen extends Screen implements Input {
             //     }
             if (event.type == TouchEvent.TOUCH_UP) {
                 g.drawCircle(xPrevLeft, yPrevLeft, 45);
-                g.drawLine(150, 300, xPrevLeft, yPrevLeft, 0);
+                g.drawLine(150, 275, xPrevLeft, yPrevLeft, 0);
                 g.drawCircle(xPrevRight, yPrevRight, 45);
-                g.drawLine(550, 300, xPrevRight, yPrevRight, 0);
+                g.drawLine(560, 275, xPrevRight, yPrevRight, 0);
                 g.drawCircle(290, yTrackPrevLeft, 45);
                 g.drawCircle(425, yTrackPrevRight, 45);
             }
@@ -129,7 +129,7 @@ public class GameScreen extends Screen implements Input {
                         xPrevLeft = xTouchLeft;
                         yPrevLeft = yTouchLeft;
                     }
-                    if (xTouch1 >= 350 & yTouch1 > 210) {
+                    if (xTouch1 >= 350) {
                         xTouchRight = xTouch1;
                         yTouchRight = yTouch1;
                         xPrevRight = xTouchRight;
@@ -141,7 +141,7 @@ public class GameScreen extends Screen implements Input {
                         xTrackPrevLeft = xTrackLeft;
                         yTrackPrevLeft = yTrackLeft;
                     }
-                    if (xTouch1 >= 350 & yTouch1 < 210 &  xTouch1 < 520) {
+                    if (xTouch1 >= 350 & yTouch1 < 210 &  xTouch1 < 370) {
                         xTrackRight = xTouch1;
                         yTrackRight = yTouch1;
                         xTrackPrevRight = xTrackRight;
@@ -159,7 +159,7 @@ public class GameScreen extends Screen implements Input {
                         xPrevLeft = xTouchLeft;
                         yPrevLeft = yTouchLeft;
                     }
-                    if (xTouch2 >= 350 & yTouch2 > 210) {
+                    if (xTouch2 >= 350) {
                         xTouchRight = xTouch2;
                         yTouchRight = yTouch2;
                         xPrevRight = xTouchRight;
@@ -171,7 +171,7 @@ public class GameScreen extends Screen implements Input {
                         xTrackPrevLeft = xTrackLeft;
                         yTrackPrevLeft = yTrackLeft;
                     }
-                    if (xTouch2 >= 350 & yTouch2 < 210 & xTouch2 < 520) {
+                    if (xTouch2 >= 350 & yTouch2 < 210 & xTouch2 < 370) {
                         xTrackRight = xTouch2;
                         yTrackRight = yTouch2;
                         xTrackPrevRight = xTrackRight;
@@ -181,41 +181,44 @@ public class GameScreen extends Screen implements Input {
                     Log.d("ADebugTag", "yTouch2: " + yTouch2);
                 }
                 if (landscape == 1) {
-                    xR = xTouchRight - 550;
-                    yR = 300 - yTouchRight;
-                    if (((int)Math.sqrt(Math.abs((xR*xR + yR*yR)))) > 75) {
+                    xR = xTouchRight - 560;
+                    yR = 275 - yTouchRight;
+                    if (((int)Math.sqrt(Math.abs((xR*xR + yR*yR)))) > 85) {
                         angle = Math.atan2((double)yR, (double)xR);
-                        scaledXR = (int) (75 * Math.cos(angle));
-                        scaledYR = (int) (75 * Math.sin(angle));
-                        xPrevRight = 550 + scaledXR;
-                        yPrevRight = 300 - scaledYR;
+                        scaledXR = (int) (85*Math.cos(angle));
+                        scaledYR = (int) (85*Math.sin(angle));
+                        xPrevRight = 560 + scaledXR;
+                        yPrevRight = 275 - scaledYR;
+                        g.drawCircle((560 + scaledXR), (275 - scaledYR), 45);
+                        g.drawLine(560, 275, (560 + scaledXR), (275 - scaledYR), 0);
+                        /*
                         if(scaledXR > 0 & scaledYR > 0){
-                            g.drawCircle((550 + scaledXR), (300 - scaledYR), 45);
-                            g.drawLine(550, 300, (550 + scaledXR), (300 - scaledYR), 0);
+                            g.drawCircle((560 + scaledXR), (275 - scaledYR), 45);
+                            g.drawLine(560, 275, (560 + scaledXR), (275 - scaledYR), 0);
                             quadrant = "1";
                         }
                         else if(scaledXR < 0 & scaledYR > 0){
-                            g.drawCircle((550 + scaledXR), (300 - scaledYR), 45);
-                            g.drawLine(550, 300, (550 + scaledXR), (300 - scaledYR), 0);
+                            g.drawCircle((560 + scaledXR), (275 - scaledYR), 45);
+                            g.drawLine(560, 275, (560 + scaledXR), (275 - scaledYR), 0);
                             quadrant = "2";
                         }
                         else if(scaledXR < 0 & scaledYR < 0){
-                            g.drawCircle((550 + scaledXR), (300 + scaledYR), 45);
-                            g.drawLine(550, 300, (550 + scaledXR), (300 + scaledYR), 0);
+                            g.drawCircle((560 + scaledXR), (275 - scaledYR), 45);
+                            g.drawLine(560, 275, (560 + scaledXR), (275 + scaledYR), 0);
                             quadrant = "3";
                         }
                         else if(scaledXR > 0 & scaledYR < 0){
-                            g.drawCircle((550 + scaledXR), (300 + scaledYR), 45);
-                            g.drawLine(550, 300, (int)(550 + scaledXR), (int)(300 + scaledYR), 0);
+                            g.drawCircle((560 + scaledXR), (275 - scaledYR), 45);
+                            g.drawLine(560, 275, (560 + scaledXR), (275 + scaledYR), 0);
                             quadrant = "4";
                         }
-
-                    } else if((((int)Math.sqrt(Math.abs((xR*xR + yR*yR))) <= 75))) {
+*/
+                    } else if((((int)Math.sqrt(Math.abs((xR*xR + yR*yR))) <= 85))) {
                         g.drawCircle(xTouchRight, yTouchRight, 45);
-                        g.drawLine(550, 300, xTouchRight, yTouchRight, 0);
+                        g.drawLine(560, 275, xTouchRight, yTouchRight, 0);
                     }
                     g.drawCircle(xTouchLeft, yTouchLeft, 45);
-                    g.drawLine(150, 300, xTouchLeft, yTouchLeft, 0);
+                    g.drawLine(150, 275, xTouchLeft, yTouchLeft, 0);
                     g.drawCircle(290, yTrackLeft, 45);
                     g.drawCircle(425, yTrackRight, 45);
                 }
