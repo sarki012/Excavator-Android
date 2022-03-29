@@ -24,8 +24,12 @@ public class GameScreen extends Screen implements Input {
     int yTouchLeft = 300;
     int xTouchRight = 550;
     int yTouchRight = 300;
-    public static int xR = 0;
-    public static int yR = 0;
+    public static int scaledXR = 0;
+    public static int scaledYR = 0;
+    int xR = 0;
+    int yR = 0;
+    int xRTemp = 0;
+    int yRTemp = 0;
     int xTouch2 = 0;
     int yTouch2 = 0;
     int xPrevLeft = 150;
@@ -48,8 +52,7 @@ public class GameScreen extends Screen implements Input {
     int pointerId;
     int ptrIndex = 0;
     int count = 0;
-    public static double angle = 0;
-    public static double vector = 0;
+    double angle = 0;
     public static String quadrant = "0";
 
     private static final int INVALID_POINTER_ID = -1;
@@ -72,26 +75,25 @@ public class GameScreen extends Screen implements Input {
     private void updateRunning(List<TouchEvent> touchEvents, float deltaTime, Context context) {
         //updateRunning() contains controller code of our MVC scheme
         Graphics g = game.getGraphics();
-        if(count == 0) {
-            if(landscape == 1) {
+        if (count == 0) {
+            if (landscape == 1) {
                 g.drawLandscapePixmap(Assets.excavatorLandscapeBackground, 0, 0);
-            }
-            else{
+            } else {
                 g.drawPortraitPixmap(Assets.excavatorPortraitBackground, 0, 0);
             }
             g.drawCircle(150, 300, 45);
             g.drawCircle(550, 300, 45);
-            g.drawCircle(290, 150, 45);
-            g.drawCircle(425, 150, 45);
+            g.drawCircle(290, 100, 45);
+            g.drawCircle(425, 100, 45);
         }
         int len = touchEvents.size();
         //Check to see if paused
         for (int i = 0; i < len; i++) {
             TouchEvent event = touchEvents.get(i);
-   //         if (event.type == TouchEvent.TOUCH_UP){
-     //           count = 0;
-       //     }
-            if(event.type == TouchEvent.TOUCH_UP) {
+            //         if (event.type == TouchEvent.TOUCH_UP){
+            //           count = 0;
+            //     }
+            if (event.type == TouchEvent.TOUCH_UP) {
                 g.drawCircle(xPrevLeft, yPrevLeft, 45);
                 g.drawLine(150, 300, xPrevLeft, yPrevLeft, 0);
                 g.drawCircle(xPrevRight, yPrevRight, 45);
@@ -101,12 +103,11 @@ public class GameScreen extends Screen implements Input {
             }
 
 
-            if(event.type == TouchEvent.TOUCH_DRAGGED || event.type == TouchEvent.TOUCH_DOWN) {
+            if (event.type == TouchEvent.TOUCH_DRAGGED || event.type == TouchEvent.TOUCH_DOWN) {
                 count = 1;
-                if(landscape == 1) {
+                if (landscape == 1) {
                     g.drawLandscapePixmap(Assets.excavatorLandscapeBackground, 0, 0);
-                }
-                else{
+                } else {
                     g.drawPortraitPixmap(Assets.excavatorPortraitBackground, 0, 0);
                 }
                 // Save the ID of this pointer
@@ -118,29 +119,29 @@ public class GameScreen extends Screen implements Input {
                 }
                 mActivePointerId = event.pointer;
 
-                if(mActivePointerId == 0){
+                if (mActivePointerId == 0) {
                     Log.d("ADebugTag", "mActivePointerId: " + mActivePointerId);
                     xTouch1 = event.x;
                     yTouch1 = event.y;
-                    if(xTouch1 < 350 & yTouch1 > 210){
+                    if (xTouch1 < 350 & yTouch1 > 210) {
                         xTouchLeft = xTouch1;
                         yTouchLeft = yTouch1;
                         xPrevLeft = xTouchLeft;
                         yPrevLeft = yTouchLeft;
                     }
-                    if(xTouch1 >= 350 & yTouch1 > 210){
+                    if (xTouch1 >= 350 & yTouch1 > 210) {
                         xTouchRight = xTouch1;
                         yTouchRight = yTouch1;
                         xPrevRight = xTouchRight;
                         yPrevRight = yTouchRight;
                     }
-                    if(xTouch1 > 200 & xTouch1 < 350 & yTouch1 < 210){
+                    if (xTouch1 > 200 & xTouch1 < 350 & yTouch1 < 210) {
                         xTrackLeft = xTouch1;
                         yTrackLeft = yTouch1;
                         xTrackPrevLeft = xTrackLeft;
                         yTrackPrevLeft = yTrackLeft;
                     }
-                    if(xTouch1 >= 350 & yTouch1 < 210){
+                    if (xTouch1 >= 350 & yTouch1 < 210 &  xTouch1 < 520) {
                         xTrackRight = xTouch1;
                         yTrackRight = yTouch1;
                         xTrackPrevRight = xTrackRight;
@@ -148,30 +149,29 @@ public class GameScreen extends Screen implements Input {
                     }
                     Log.d("ADebugTag", "xTouch1: " + xTouch1);
                     Log.d("ADebugTag", "yTouch1: " + yTouch1);
-                }
-                else if(mActivePointerId == 1){
+                } else if (mActivePointerId == 1) {
                     Log.d("ADebugTag", "mActivePointerId: " + mActivePointerId);
                     xTouch2 = event.x;
                     yTouch2 = event.y;
-                    if(xTouch2 < 350 & yTouch2 > 210){
+                    if (xTouch2 < 350 & yTouch2 > 210) {
                         xTouchLeft = xTouch2;
                         yTouchLeft = yTouch2;
                         xPrevLeft = xTouchLeft;
                         yPrevLeft = yTouchLeft;
                     }
-                    if(xTouch2 >= 350 & yTouch2 > 210){
+                    if (xTouch2 >= 350 & yTouch2 > 210) {
                         xTouchRight = xTouch2;
                         yTouchRight = yTouch2;
                         xPrevRight = xTouchRight;
                         yPrevRight = yTouchRight;
                     }
-                    if(xTouch2 > 200 & xTouch2 < 350 & yTouch2 < 210){
+                    if (xTouch2 > 200 & xTouch2 < 350 & yTouch2 < 210) {
                         xTrackLeft = xTouch2;
                         yTrackLeft = yTouch2;
                         xTrackPrevLeft = xTrackLeft;
                         yTrackPrevLeft = yTrackLeft;
                     }
-                    if(xTouch2 >= 350 & yTouch2 < 210){
+                    if (xTouch2 >= 350 & yTouch2 < 210 & xTouch2 < 520) {
                         xTrackRight = xTouch2;
                         yTrackRight = yTouch2;
                         xTrackPrevRight = xTrackRight;
@@ -180,39 +180,65 @@ public class GameScreen extends Screen implements Input {
                     Log.d("ADebugTag", "xTouch2: " + xTouch2);
                     Log.d("ADebugTag", "yTouch2: " + yTouch2);
                 }
-                if(landscape == 1) {
-                    g.drawCircle(xTouchLeft, yTouchLeft, 45);
-                    g.drawLine(150, 300, xTouchLeft, yTouchLeft, 0);
-                    g.drawCircle(xTouchRight, yTouchRight, 45);
-                    g.drawLine(550, 300, xTouchRight, yTouchRight, 0);
+                if (landscape == 1) {
                     xR = xTouchRight - 550;
                     yR = 300 - yTouchRight;
+                    if (((int)Math.sqrt(Math.abs((xR*xR + yR*yR)))) > 75) {
+                        angle = Math.atan2((double)yR, (double)xR);
+                        scaledXR = (int) (75 * Math.cos(angle));
+                        scaledYR = (int) (75 * Math.sin(angle));
+                        xPrevRight = 550 + scaledXR;
+                        yPrevRight = 300 - scaledYR;
+                        if(scaledXR > 0 & scaledYR > 0){
+                            g.drawCircle((550 + scaledXR), (300 - scaledYR), 45);
+                            g.drawLine(550, 300, (550 + scaledXR), (300 - scaledYR), 0);
+                            quadrant = "1";
+                        }
+                        else if(scaledXR < 0 & scaledYR > 0){
+                            g.drawCircle((550 + scaledXR), (300 - scaledYR), 45);
+                            g.drawLine(550, 300, (550 + scaledXR), (300 - scaledYR), 0);
+                            quadrant = "2";
+                        }
+                        else if(scaledXR < 0 & scaledYR < 0){
+                            g.drawCircle((550 + scaledXR), (300 + scaledYR), 45);
+                            g.drawLine(550, 300, (550 + scaledXR), (300 + scaledYR), 0);
+                            quadrant = "3";
+                        }
+                        else if(scaledXR > 0 & scaledYR < 0){
+                            g.drawCircle((550 + scaledXR), (300 + scaledYR), 45);
+                            g.drawLine(550, 300, (int)(550 + scaledXR), (int)(300 + scaledYR), 0);
+                            quadrant = "4";
+                        }
+
+                    } else if((((int)Math.sqrt(Math.abs((xR*xR + yR*yR))) <= 75))) {
+                        g.drawCircle(xTouchRight, yTouchRight, 45);
+                        g.drawLine(550, 300, xTouchRight, yTouchRight, 0);
+                    }
+                    g.drawCircle(xTouchLeft, yTouchLeft, 45);
+                    g.drawLine(150, 300, xTouchLeft, yTouchLeft, 0);
                     g.drawCircle(290, yTrackLeft, 45);
                     g.drawCircle(425, yTrackRight, 45);
                 }
 
-        //        x = xTouch - 205;
-          //      y = -1*(yTouch - 353);
+                //        x = xTouch - 205;
+                //      y = -1*(yTouch - 353);
+                /*
                 //Trigonometry code to calculate the vector angle and magnitude
-                angle = Math.toDegrees(Math.atan(Math.abs(y/x)));
-                if(x > 0 && y > 0){
+                angle = Math.toDegrees(Math.atan(Math.abs(y / x)));
+                if (x > 0 && y > 0) {
                     quadrant = "1";
-                }
-                else if(x < 0 && y > 0){
+                } else if (x < 0 && y > 0) {
                     quadrant = "2";
-                }
-                else if(x < 0 && y < 0){
+                } else if (x < 0 && y < 0) {
                     quadrant = "3";
-                }
-                else if(x > 0 && y < 0){
+                } else if (x > 0 && y < 0) {
                     quadrant = "4";
                 }
+                */
 
-                vector = Math.sqrt(x*x + y*y);
             }
         }
     }
-
         @Override
         public void present ( float deltaTime){
             Graphics g = game.getGraphics();

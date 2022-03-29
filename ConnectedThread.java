@@ -12,11 +12,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static com.esark.excavator.GameScreen.angle;
 import static com.esark.excavator.GameScreen.quadrant;
-import static com.esark.excavator.GameScreen.vector;
-import static com.esark.excavator.GameScreen.xR;
-import static com.esark.excavator.GameScreen.yR;
+import static com.esark.excavator.GameScreen.scaledXR;
+import static com.esark.excavator.GameScreen.scaledYR;
 
 
 public class ConnectedThread extends Thread {
@@ -67,19 +65,22 @@ public class ConnectedThread extends Thread {
 
                 break;
             }
-            Log.d("ADebugTag", "yR: " + yR);
-            if(yR > 0){
+            /*
+            Log.d("ADebugTag", "scaledYR: " + scaledYR);
+            if(scaledYR > 0){
                 write("U");
             }
-            else if(yR < 0){
+            else if(scaledYR < 0){
                 write("D");
             }
-            if(xR > 0){
+            if(scaledXR > 0){
                 write("R");
             }
-            else if(xR < 0){
+            else if(scaledXR < 0){
                 write("L");
             }
+
+             */
 /*
             write("E");
             write("R");
