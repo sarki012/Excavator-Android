@@ -229,9 +229,7 @@ public class GameScreen extends Screen implements Input {
                     g.drawCircle(290, yTrackLeft, 45);
                     g.drawCircle(425, yTrackRight, 45);
                 }
-                //Some different Code
-                //////////////////////////////////////////////////
-                //////////////////////////////////////////////////
+
 
                 //        x = xTouch - 205;
                 //      y = -1*(yTouch - 353);
