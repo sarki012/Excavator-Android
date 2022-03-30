@@ -23,19 +23,16 @@ public class ConnectedThread extends Thread {
     private final InputStream mmInStream;
     private final OutputStream mmOutStream;
     private final Handler mHandler;
-    public IntToChars mIntToChars;
-    public String[] returnArray = new String[] {"0", "0"};
-    String d0, d1, ad2;
-    String vd0, vd1, vd2;
-
-
+   // public IntToChars mIntToChars;
+    public String[] returnArray = new String[] {"0", "0", "0"};
+    IntToChars mIntToChars = new IntToChars();
 
     public ConnectedThread(BluetoothSocket socket, Handler handler) {
         mmSocket = socket;
         mHandler = handler;
         InputStream tmpIn = null;
         OutputStream tmpOut = null;
-        IntToChars mIntToChars = new IntToChars();
+
         // Get the input and output streams, using temp objects because
         // member streams are final
         try {
@@ -68,8 +65,19 @@ public class ConnectedThread extends Thread {
 
                 break;
             }
-
+            write("c");
+            /////////////////Bucket Curl//////////////////////
             returnArray = mIntToChars.IntToCharsMethod(c);
+            write(returnArray[0]);          //d0 (Right digit)
+            write(returnArray[1]);          //d1 (Left digit)
+            write(returnArray[2]);          //d2 (+/-)
+            ////////////////Boom//////////////////////////////
+            write("b");
+            returnArray = mIntToChars.IntToCharsMethod(b);
+            write(returnArray[0]);          //d0 (Right digit)
+            write(returnArray[1]);          //d1 (Left digit)
+            write(returnArray[2]);          //d2 (+/-)
+
 
         }
     }

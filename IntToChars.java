@@ -1,85 +1,90 @@
 package com.esark.excavator;
 
 public class IntToChars {
-    int integer;
-    int returnAddress = 0;
-    String[] d1d0 = new String[] {"0", "0"};
+    String[] tripleString = new String[] {"0,", "0", "0"};
     public IntToChars(){
     }
-    public String IntToCharsMethod(int integer){
+    public String[] IntToCharsMethod(int integer){
         //int to char code here...
-            switch((int)integer%10) {
-                case 0 :
-                    d0 = "0";
-                    break;
-                case 1 :
-                    d0 = "1";
-                    break;
-                case 2 :
-                    d0 = "2";
-                    break;
-                case 3 :
-                    d0 = "3";
-                    break;
-                case 4 :
-                    d0 = "4";
-                    break;
-                case 5 :
-                    d0 = "5";
-                    break;
-                case 6 :
-                    d0 = "6";
-                    break;
-                case 7 :
-                    d0 = "7";
-                    break;
-                case 8 :
-                    d0 = "8";
-                    break;
-                case 9 :
-                    d0 = "9";
-                    break;
-                default :
-                    d0 = "-";
-            }
-            integer /= 10;
-            switch((int)integer%10) {
-                case 0 :
-                    d1 = "0";
-                    break;
-                case 1 :
-                    d1 = "1";
-                    break;
-                case 2 :
-                    d1 = "2";
-                    break;
-                case 3 :
-                    d1 = "3";
-                    break;
-                case 4 :
-                    d1 = "4";
-                    break;
-                case 5 :
-                    d1 = "5";
-                    break;
-                case 6 :
-                    d1 = "6";
-                    break;
-                case 7 :
-                    d1 = "7";
-                    break;
-                case 8 :
-                    d1 = "8";
-                    break;
-                case 9 :
-                    d1 = "9";
-                    break;
-                default :
-                    d1 = "-";
-            }
+        if(integer < 0){
+            tripleString[2] = "-";
+        }
+        else{
+            tripleString[2] = "+";
+        }
+        integer = Math.abs(integer);
+        switch((int)integer%10) {
+            case 0 :
+                tripleString[0] = "0";
+                break;
+            case 1 :
+                tripleString[0] = "1";
+                break;
+            case 2 :
+                tripleString[0] = "2";
+                break;
+            case 3 :
+                tripleString[0] = "3";
+                break;
+            case 4 :
+                tripleString[0] = "4";
+                break;
+            case 5 :
+                tripleString[0] = "5";
+                break;
+            case 6 :
+                tripleString[0] = "6";
+                break;
+            case 7 :
+                tripleString[0] = "7";
+                break;
+            case 8 :
+                tripleString[0] = "8";
+                break;
+            case 9 :
+                tripleString[0] = "9";
+                break;
+            default :
+                tripleString[0] = "-";
+        }
+        integer /= 10;
+        switch((int)integer) {
+            case 0 :
+                tripleString[1] = "0";
+                break;
+            case 1 :
+                tripleString[1] = "1";
+                break;
+            case 2 :
+                tripleString[1] = "2";
+                break;
+            case 3 :
+                tripleString[1] = "3";
+                break;
+            case 4 :
+                tripleString[1] = "4";
+                break;
+            case 5 :
+                tripleString[1] = "5";
+                break;
+            case 6 :
+                tripleString[1] = "6";
+                break;
+            case 7 :
+                tripleString[1] = "7";
+                break;
+            case 8 :
+                tripleString[1] = "8";
+                break;
+            case 9 :
+                tripleString[1] = "9";
+                break;
+            default :
+                tripleString[1] = "-";
+        }
 
 
-        return d1d0;
+        return tripleString;
     }
 }
 
