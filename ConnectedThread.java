@@ -65,18 +65,21 @@ public class ConnectedThread extends Thread {
 
                 break;
             }
-            write("c");
+
+            //Try delays between the characters to make it not jump SystemClock.sleep
             /////////////////Bucket Curl//////////////////////
             returnArray = mIntToChars.IntToCharsMethod(c);
-            write(returnArray[0]);          //d0 (Right digit)
-            write(returnArray[1]);          //d1 (Left digit)
+            write("c");
             write(returnArray[2]);          //d2 (+/-)
+            write(returnArray[1]);          //d1 (Left digit)
+            write(returnArray[0]);          //d2 (Right Digit)
             ////////////////Boom//////////////////////////////
-            write("b");
             returnArray = mIntToChars.IntToCharsMethod(b);
-            write(returnArray[0]);          //d0 (Right digit)
-            write(returnArray[1]);          //d1 (Left digit)
+            write("b");
             write(returnArray[2]);          //d2 (+/-)
+            write(returnArray[1]);          //d1 (Left digit)
+            write(returnArray[0]);          //d2 (Right Digit)
+            SystemClock.sleep(50);
 
 
         }
