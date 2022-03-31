@@ -38,6 +38,12 @@ public class GameScreen extends Screen implements Input {
     public static int b = 0;
     public static int o = 0;
     public static int s = 0;
+    int tempc = 0;
+    int tempb = 0;
+    int tempo = 0;
+    int temps = 0;
+    int leftCount = 0;
+    int rightCount = 0;
     int xRTemp = 0;
     int yRTemp = 0;
     int xTouch2 = 0;
@@ -202,11 +208,32 @@ public class GameScreen extends Screen implements Input {
                         g.drawLine(560, 275, (560 + scaledXR), (275 - scaledYR), 0);
                         c = scaledXR;
                         b = scaledYR;
+                        /*
+                        rightCount++;
+                        if(rightCount >= 20){
+                            c = (int)(tempc/rightCount);
+                            b = (int)(tempb/rightCount);
+                            rightCount = 0;
+                            tempc = 0;
+                            tempb = 0;
+                        }
+                        */
                     } else if((((int)Math.sqrt(Math.abs((xR*xR + yR*yR))) <= 85))) {
                         g.drawCircle(xTouchRight, yTouchRight, 45);
                         g.drawLine(560, 275, xTouchRight, yTouchRight, 0);
                         c = xR;
                         b = yR;
+                        /*
+                        rightCount++;
+                        if(rightCount >= 20){
+                            c = (int)(tempc/rightCount);
+                            b = (int)(tempb/rightCount);
+                            rightCount = 0;
+                            tempc = 0;
+                            tempb = 0;
+                        }
+
+                         */
                     }
                     xL = xTouchLeft - 150;
                     yL = 275 - yTouchLeft;
@@ -218,13 +245,29 @@ public class GameScreen extends Screen implements Input {
                         yPrevLeft = 275 - scaledYL;
                         g.drawCircle((140 + scaledXL), (275 - scaledYL), 45);
                         g.drawLine(140, 275, (140 + scaledXL), (275 - scaledYL), 0);
-                        o = scaledXL;
-                        s = scaledYL;
+                        tempo += scaledXL;
+                        temps += scaledYL;
+                        leftCount++;
+                        if(leftCount >= 20){
+                            o = (int)(tempo/(leftCount - 1));
+                            s = (int)(temps/(leftCount - 1));
+                            leftCount = 0;
+                            tempo = 0;
+                            temps = 0;
+                        }
                     } else if((((int)Math.sqrt(Math.abs((xL*xL + yL*yL))) <= 85))) {
                         g.drawCircle(xTouchLeft, yTouchLeft, 45);
                         g.drawLine(140, 275, xTouchLeft, yTouchLeft, 0);
-                        o = xL;
-                        s = yL;
+                        tempo += xL;
+                        temps += yL;
+                        leftCount++;
+                        if(leftCount >= 20){
+                            o = (int)(tempo/leftCount);
+                            s = (int)(temps/leftCount);
+                            leftCount = 0;
+                            tempo = 0;
+                            temps = 0;
+                        }
                     }
                     g.drawCircle(290, yTrackLeft, 45);
                     g.drawCircle(425, yTrackRight, 45);
