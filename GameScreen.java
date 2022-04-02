@@ -38,8 +38,14 @@ public class GameScreen extends Screen implements Input {
     public static int b = 0;
     public static int o = 0;
     public static int s = 0;
-    int tempc = 0;
-    int tempb = 0;
+    int[] tempCArr = new int[]{0, 0, 0, 0, 0};
+    int[] tempBArr = new int[]{0, 0, 0, 0, 0};
+    int tempC = 0;
+    int tempB = 0;
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    int m = 0;
     int tempo = 0;
     int temps = 0;
     int leftCount = 0;
@@ -118,7 +124,7 @@ public class GameScreen extends Screen implements Input {
             }
 
 
-            if (event.type == TouchEvent.TOUCH_DRAGGED || event.type == TouchEvent.TOUCH_DOWN) {
+            if (event.type == TouchEvent.TOUCH_DRAGGED || event.type == TouchEvent.TOUCH_DOWN || event.type == TouchEvent.TOUCH_UP) {
                 count = 1;
                 if (landscape == 1) {
                     g.drawLandscapePixmap(Assets.excavatorLandscapeBackground, 0, 0);
@@ -206,51 +212,74 @@ public class GameScreen extends Screen implements Input {
                         yPrevRight = 275 - scaledYR;
                         g.drawCircle((560 + scaledXR), (275 - scaledYR), 45);
                         g.drawLine(560, 275, (560 + scaledXR), (275 - scaledYR), 0);
+                        /*
                         rightCount++;
                         if(rightCount == 10){
                             c = scaledXR;
                             b = scaledYR;
                             rightCount = 0;
                         }
-                    //    c = scaledXR;
-                      //  b = scaledYR;
-                        /*
-                        tempc += scaledXR;
-                        tempb += scaledYR;
-                        rightCount++;
-                        if(rightCount >= 5){
-                            c = (int)(tempc/rightCount);
-                            b = (int)(tempb/rightCount);
-                            rightCount = 0;
-                            tempc = 0;
-                            tempb = 0;
-                        }
 
                          */
+                    //    c = scaledXR;
+                      //  b = scaledYR;
+                        for(i = 1; i < 5; i++){
+                            tempCArr[i - 1] = tempCArr[i];
+                            tempBArr[i - 1] = tempBArr[i];
+                        }
+                        tempCArr[4] = scaledXR;
+                        tempBArr[4] = scaledYR;
+                        if(rightCount < 5) {
+                            rightCount++;
+                        }
+                        if(rightCount == 5){
+                            for(j = 0; j < 5; j++) {
+                                tempC += tempCArr[j];
+                                tempB += tempBArr[j];
+                            }
+                            c = (int)(tempC/5);
+                            b = (int)(tempB/5);
+                            tempC = 0;
+                            tempB = 0;
+                        }
+
+
                     } else if((((int)Math.sqrt(Math.abs((xR*xR + yR*yR))) <= 85))) {
                         g.drawCircle(xTouchRight, yTouchRight, 45);
                         g.drawLine(560, 275, xTouchRight, yTouchRight, 0);
+                        /*
                         rightCount++;
                         if(rightCount == 10){
                             c = xR;
                             b = yR;
                             rightCount = 0;
                         }
-                        //c = xR;
-                        //b = yR;
-                        /*
-                        tempc += xR;
-                        tempb += yR;
-                        rightCount++;
-                        if(rightCount >= 5){
-                            c = (int)(tempc/rightCount);
-                            b = (int)(tempb/rightCount);
-                            rightCount = 0;
-                            tempc = 0;
-                            tempb = 0;
-                        }
 
                          */
+                        //c = xR;
+                        //b = yR;
+
+                        for(k = 1; k < 5; k++){
+                            tempCArr[k - 1] = tempCArr[k];
+                            tempBArr[k - 1] = tempBArr[k];
+                        }
+                        tempCArr[4] = xR;
+                        tempBArr[4] = yR;
+                        if(rightCount < 5) {
+                            rightCount++;
+                        }
+                        if(rightCount == 5){
+                            for(m = 0; m < 5; m++) {
+                                tempC += tempCArr[m];
+                                tempB += tempBArr[m];
+                            }
+                            c = (int)(tempC/5);
+                            b = (int)(tempB/5);
+                            tempC = 0;
+                            tempB = 0;
+                        }
+
+
 
 
                     }

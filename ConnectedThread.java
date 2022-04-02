@@ -73,14 +73,13 @@ public class ConnectedThread extends Thread {
             write(returnArray[2]);          //d2 (+/-)
             write(returnArray[1]);          //d1 (Left digit)
             write(returnArray[0]);          //d2 (Right Digit)
-            SystemClock.sleep(25);
             ////////////////Boom//////////////////////////////
             returnArray = mIntToChars.IntToCharsMethod(b);
             write("b");
             write(returnArray[2]);          //d2 (+/-)
             write(returnArray[1]);          //d1 (Left digit)
             write(returnArray[0]);          //d2 (Right Digit)
-            SystemClock.sleep(25);
+            SystemClock.sleep(30);
 
 
         }
