@@ -79,7 +79,7 @@ public class ConnectedThread extends Thread {
             write(returnArray[2]);          //d2 (+/-)
             write(returnArray[1]);          //d1 (Left digit)
             write(returnArray[0]);          //d2 (Right Digit)
-            SystemClock.sleep(30);
+            SystemClock.sleep(100);
 
 
         }
