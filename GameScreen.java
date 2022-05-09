@@ -38,8 +38,8 @@ public class GameScreen extends Screen implements Input {
     public static int b = 0;
     public static int o = 0;
     public static int s = 0;
-    int[] tempCArr = new int[]{0, 0, 0, 0, 0};
-    int[] tempBArr = new int[]{0, 0, 0, 0, 0};
+    int[] tempCArr = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    int[] tempBArr = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     int tempC = 0;
     int tempB = 0;
     int i = 0;
@@ -66,6 +66,7 @@ public class GameScreen extends Screen implements Input {
     int yTrackRight = 150;
     int xTrackPrevRight = 400;
     int yTrackPrevRight = 150;
+    int numAvg = 0;
     int pointer = 0;
     int prevX = 0;
     int prevY = 0;
@@ -202,6 +203,7 @@ public class GameScreen extends Screen implements Input {
                     Log.d("ADebugTag", "yTouch2: " + yTouch2);
                 }
                 if (landscape == 1) {
+                    numAvg = 10;
                     xR = xTouchRight - 560;
                     yR = 275 - yTouchRight;
                     if (((int)Math.sqrt(Math.abs((xR*xR + yR*yR)))) > 85) {
@@ -223,22 +225,22 @@ public class GameScreen extends Screen implements Input {
                          */
                     //    c = scaledXR;
                       //  b = scaledYR;
-                        for(i = 1; i < 5; i++){
+                        for(i = 1; i < numAvg; i++){
                             tempCArr[i - 1] = tempCArr[i];
                             tempBArr[i - 1] = tempBArr[i];
                         }
-                        tempCArr[4] = scaledXR;
-                        tempBArr[4] = scaledYR;
+                        tempCArr[numAvg - 1] = scaledXR;
+                        tempBArr[numAvg - 1] = scaledYR;
                         if(rightCount < 5) {
                             rightCount++;
                         }
-                        if(rightCount == 5){
-                            for(j = 0; j < 5; j++) {
+                        if(rightCount == numAvg){
+                            for(j = 0; j < numAvg; j++) {
                                 tempC += tempCArr[j];
                                 tempB += tempBArr[j];
                             }
-                            c = (int)(tempC/5);
-                            b = (int)(tempB/5);
+                            c = (int)(tempC/numAvg);
+                            b = (int)(tempB/numAvg);
                             tempC = 0;
                             tempB = 0;
                         }
@@ -259,22 +261,22 @@ public class GameScreen extends Screen implements Input {
                         //c = xR;
                         //b = yR;
 
-                        for(k = 1; k < 5; k++){
+                        for(k = 1; k < numAvg; k++){
                             tempCArr[k - 1] = tempCArr[k];
                             tempBArr[k - 1] = tempBArr[k];
                         }
-                        tempCArr[4] = xR;
-                        tempBArr[4] = yR;
-                        if(rightCount < 5) {
+                        tempCArr[numAvg - 1] = xR;
+                        tempBArr[numAvg - 1] = yR;
+                        if(rightCount < numAvg) {
                             rightCount++;
                         }
-                        if(rightCount == 5){
-                            for(m = 0; m < 5; m++) {
+                        if(rightCount == numAvg){
+                            for(m = 0; m < numAvg; m++) {
                                 tempC += tempCArr[m];
                                 tempB += tempBArr[m];
                             }
-                            c = (int)(tempC/5);
-                            b = (int)(tempB/5);
+                            c = (int)(tempC/numAvg);
+                            b = (int)(tempB/numAvg);
                             tempC = 0;
                             tempB = 0;
                         }
