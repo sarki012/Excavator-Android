@@ -16,6 +16,7 @@ import java.io.OutputStream;
 import static com.esark.excavator.GameScreen.quadrant;
 import static com.esark.excavator.GameScreen.c;
 import static com.esark.excavator.GameScreen.b;
+import static com.esark.excavator.GameScreen.stopSending;
 
 
 public class ConnectedThread extends Thread {
@@ -68,18 +69,20 @@ public class ConnectedThread extends Thread {
 
             //Try delays between the characters to make it not jump SystemClock.sleep
             /////////////////Bucket Curl//////////////////////
-            returnArray = mIntToChars.IntToCharsMethod(c);
-            write("c");
-            write(returnArray[2]);          //d2 (+/-)
-            write(returnArray[1]);          //d1 (Left digit)
-            write(returnArray[0]);          //d2 (Right Digit)
-            ////////////////Boom//////////////////////////////
-            returnArray = mIntToChars.IntToCharsMethod(b);
-            write("b");
-            write(returnArray[2]);          //d2 (+/-)
-            write(returnArray[1]);          //d1 (Left digit)
-            write(returnArray[0]);          //d2 (Right Digit)
-            SystemClock.sleep(100);
+            if(stopSending == 0) {
+                returnArray = mIntToChars.IntToCharsMethod(c);
+                write("c");
+                write(returnArray[2]);          //d2 (+/-)
+                write(returnArray[1]);          //d1 (Left digit)
+                write(returnArray[0]);          //d2 (Right Digit)
+                ////////////////Boom//////////////////////////////
+                returnArray = mIntToChars.IntToCharsMethod(b);
+                write("b");
+                write(returnArray[2]);          //d2 (+/-)
+                write(returnArray[1]);          //d1 (Left digit)
+                write(returnArray[0]);          //d2 (Right Digit)
+                SystemClock.sleep(100);
+            }
 
 
         }

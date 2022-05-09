@@ -67,6 +67,7 @@ public class GameScreen extends Screen implements Input {
     int xTrackPrevRight = 400;
     int yTrackPrevRight = 150;
     int numAvg = 0;
+    public static int stopSending = 0;
     int pointer = 0;
     int prevX = 0;
     int prevY = 0;
@@ -116,6 +117,7 @@ public class GameScreen extends Screen implements Input {
             //           count = 0;
             //     }
             if (event.type == TouchEvent.TOUCH_UP) {
+                stopSending = 1;
                 g.drawCircle(xPrevLeft, yPrevLeft, 45);
                 g.drawLine(150, 275, xPrevLeft, yPrevLeft, 0);
                 g.drawCircle(xPrevRight, yPrevRight, 45);
@@ -125,8 +127,9 @@ public class GameScreen extends Screen implements Input {
             }
 
 
-            if (event.type == TouchEvent.TOUCH_DRAGGED || event.type == TouchEvent.TOUCH_DOWN || event.type == TouchEvent.TOUCH_UP) {
+            if (event.type == TouchEvent.TOUCH_DRAGGED || event.type == TouchEvent.TOUCH_DOWN) {
                 count = 1;
+                stopSending = 0;
                 if (landscape == 1) {
                     g.drawLandscapePixmap(Assets.excavatorLandscapeBackground, 0, 0);
                 } else {
