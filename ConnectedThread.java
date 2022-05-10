@@ -13,10 +13,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static com.esark.excavator.GameScreen.quadrant;
 import static com.esark.excavator.GameScreen.c;
 import static com.esark.excavator.GameScreen.b;
 import static com.esark.excavator.GameScreen.stopSending;
+import static com.esark.excavator.GameScreen.stopSendingBoom;
+import static com.esark.excavator.GameScreen.stopSendingCurl;
 
 
 public class ConnectedThread extends Thread {
@@ -70,17 +71,21 @@ public class ConnectedThread extends Thread {
             //Try delays between the characters to make it not jump SystemClock.sleep
             /////////////////Bucket Curl//////////////////////
             if(stopSending == 0) {
-                returnArray = mIntToChars.IntToCharsMethod(c);
-                write("c");
-                write(returnArray[2]);          //d2 (+/-)
-                write(returnArray[1]);          //d1 (Left digit)
-                write(returnArray[0]);          //d2 (Right Digit)
+                returnArray = mIntToChars.IntToCharsMethod(c);      //Send an integer and get three chars in the returnArray as a return value
+                if(stopSendingCurl == 0) {
+                    write("c");               //c for curl. Number of pixels in the x-direction
+                    write(returnArray[2]);          //d2 (+/-)
+                    write(returnArray[1]);          //d1 (Left digit)
+                    write(returnArray[0]);          //d2 (Right Digit)
+                }
                 ////////////////Boom//////////////////////////////
                 returnArray = mIntToChars.IntToCharsMethod(b);
-                write("b");
-                write(returnArray[2]);          //d2 (+/-)
-                write(returnArray[1]);          //d1 (Left digit)
-                write(returnArray[0]);          //d2 (Right Digit)
+                if(stopSendingBoom == 0) {          //Send an integer and get three chars in the returnArray as a return value
+                    write("b");               //b for boom. Number of pixels in the y-direction
+                    write(returnArray[2]);          //d2 (+/-)
+                    write(returnArray[1]);          //d1 (Left digit)
+                    write(returnArray[0]);          //d2 (Right Digit)
+                }
                 SystemClock.sleep(100);
             }
 
