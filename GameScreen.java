@@ -15,9 +15,6 @@ import java.util.List;
 
 public class GameScreen extends Screen implements Input {
     Context context = null;
-    int xStart = 0, xStop = 0;
-    public static double[] A2DVal = new double[420];
-    double[] psd = new double[420];
     int xTouch1 = 0;
     int yTouch1 = 0;
     int xTouchLeft = 150;
@@ -50,8 +47,6 @@ public class GameScreen extends Screen implements Input {
     int temps = 0;
     int leftCount = 0;
     int rightCount = 0;
-    int xRTemp = 0;
-    int yRTemp = 0;
     int xTouch2 = 0;
     int yTouch2 = 0;
     int xPrevLeft = 150;
@@ -68,15 +63,9 @@ public class GameScreen extends Screen implements Input {
     int yTrackPrevRight = 150;
     int numAvg = 0;
     public static int stopSending = 0;
-    int pointer = 0;
-    int prevX = 0;
-    int prevY = 0;
-    double x = 0;
-    double y = 0;
-    int pointerId;
-    int ptrIndex = 0;
+    public static int stopSendingBoom = 0;
+    public static int stopSendingCurl = 0;
     int count = 0;
-    public static String quadrant = "0";
 
     private static final int INVALID_POINTER_ID = -1;
     // The ‘active pointer’ is the one currently moving our object.
@@ -98,7 +87,9 @@ public class GameScreen extends Screen implements Input {
     private void updateRunning(List<TouchEvent> touchEvents, float deltaTime, Context context) {
         //updateRunning() contains controller code of our MVC scheme
         Graphics g = game.getGraphics();
+        //If count == 0 it's the first time and we draw the background and the four joysticks
         if (count == 0) {
+            //If landscape == 1 the phone is in landscape orientation
             if (landscape == 1) {
                 g.drawLandscapePixmap(Assets.excavatorLandscapeBackground, 0, 0);
             } else {
@@ -217,17 +208,6 @@ public class GameScreen extends Screen implements Input {
                         yPrevRight = 275 - scaledYR;
                         g.drawCircle((560 + scaledXR), (275 - scaledYR), 45);
                         g.drawLine(560, 275, (560 + scaledXR), (275 - scaledYR), 0);
-                        /*
-                        rightCount++;
-                        if(rightCount == 10){
-                            c = scaledXR;
-                            b = scaledYR;
-                            rightCount = 0;
-                        }
-
-                         */
-                    //    c = scaledXR;
-                      //  b = scaledYR;
                         for(i = 1; i < numAvg; i++){
                             tempCArr[i - 1] = tempCArr[i];
                             tempBArr[i - 1] = tempBArr[i];
@@ -243,7 +223,20 @@ public class GameScreen extends Screen implements Input {
                                 tempB += tempBArr[j];
                             }
                             c = (int)(tempC/numAvg);
+                            if(c > -25 && c < 25){
+                                stopSendingCurl = 1;
+                            }
+                            else{
+                                stopSendingCurl = 0;
+                            }
                             b = (int)(tempB/numAvg);
+                            if(b > -25 && b < 25){
+                                stopSendingBoom = 1;
+                            }
+                            else{
+                                stopSendingBoom = 0;
+                            }
+
                             tempC = 0;
                             tempB = 0;
                         }
