@@ -46,8 +46,6 @@ public class GameScreen extends Screen implements Input {
     int m = 0;
     int tempO = 0;
     int tempS = 0;
-    int stopSendingOrbit = 0;
-    int stopSendingStick = 0;
     int[] tempOArr = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     int[] tempSArr = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     int leftCount = 0;
@@ -70,6 +68,8 @@ public class GameScreen extends Screen implements Input {
     public static int stopSending = 0;
     public static int stopSendingBoom = 0;
     public static int stopSendingCurl = 0;
+    public static int stopSendingOrbit = 0;
+    public static int stopSendingStick = 0;
     int count = 0;
 
     private static final int INVALID_POINTER_ID = -1;

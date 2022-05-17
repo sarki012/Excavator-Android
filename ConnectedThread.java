@@ -15,9 +15,13 @@ import java.io.OutputStream;
 
 import static com.esark.excavator.GameScreen.c;
 import static com.esark.excavator.GameScreen.b;
+import static com.esark.excavator.GameScreen.o;
+import static com.esark.excavator.GameScreen.s;
 import static com.esark.excavator.GameScreen.stopSending;
 import static com.esark.excavator.GameScreen.stopSendingBoom;
 import static com.esark.excavator.GameScreen.stopSendingCurl;
+import static com.esark.excavator.GameScreen.stopSendingOrbit;
+import static com.esark.excavator.GameScreen.stopSendingStick;
 //import static com.esark.excavator.GameScreen.stopSending;
 //import static com.esark.excavator.GameScreen.stopSendingBoom;
 //import static com.esark.excavator.GameScreen.stopSendingCurl;
@@ -81,6 +85,7 @@ public class ConnectedThread extends Thread {
                     write(returnArray[1]);          //d1 (Left digit)
                     write(returnArray[0]);          //d2 (Right Digit)
                 }
+                SystemClock.sleep(10);
                 ////////////////Boom//////////////////////////////
                 returnArray = mIntToChars.IntToCharsMethod(b);
                 if(stopSendingBoom == 0) {          //Send an integer and get three chars in the returnArray as a return value
@@ -89,7 +94,25 @@ public class ConnectedThread extends Thread {
                     write(returnArray[1]);          //d1 (Left digit)
                     write(returnArray[0]);          //d2 (Right Digit)
                 }
-              //  SystemClock.sleep(100);
+                SystemClock.sleep(10);
+                ///////////Rotate//////////////////////////
+                returnArray = mIntToChars.IntToCharsMethod(o);      //Send an integer and get three chars in the returnArray as a return value
+                if(stopSendingOrbit == 0) {
+                    write("o");               //o for rotate. Number of pixels in the x-direction
+                    write(returnArray[2]);          //d2 (+/-)
+                    write(returnArray[1]);          //d1 (Left digit)
+                    write(returnArray[0]);          //d2 (Right Digit)
+                }
+                SystemClock.sleep(10);
+                ////////////////Boom//////////////////////////////
+                returnArray = mIntToChars.IntToCharsMethod(s);
+                if(stopSendingStick == 0) {          //Send an integer and get three chars in the returnArray as a return value
+                    write("s");               //s for stick. Number of pixels in the y-direction
+                    write(returnArray[2]);          //d2 (+/-)
+                    write(returnArray[1]);          //d1 (Left digit)
+                    write(returnArray[0]);          //d2 (Right Digit)
+                }
+                SystemClock.sleep(10);
             }
 
 
