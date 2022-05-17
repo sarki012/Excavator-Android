@@ -18,6 +18,9 @@ import static com.esark.excavator.GameScreen.b;
 import static com.esark.excavator.GameScreen.stopSending;
 import static com.esark.excavator.GameScreen.stopSendingBoom;
 import static com.esark.excavator.GameScreen.stopSendingCurl;
+//import static com.esark.excavator.GameScreen.stopSending;
+//import static com.esark.excavator.GameScreen.stopSendingBoom;
+//import static com.esark.excavator.GameScreen.stopSendingCurl;
 
 
 public class ConnectedThread extends Thread {
@@ -86,7 +89,7 @@ public class ConnectedThread extends Thread {
                     write(returnArray[1]);          //d1 (Left digit)
                     write(returnArray[0]);          //d2 (Right Digit)
                 }
-                SystemClock.sleep(100);
+              //  SystemClock.sleep(100);
             }
 
 
