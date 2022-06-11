@@ -15,12 +15,15 @@ import java.io.OutputStream;
 
 import static com.esark.excavator.GameScreen.c;
 import static com.esark.excavator.GameScreen.b;
+import static com.esark.excavator.GameScreen.l;
 import static com.esark.excavator.GameScreen.o;
+import static com.esark.excavator.GameScreen.r;
 import static com.esark.excavator.GameScreen.s;
-import static com.esark.excavator.GameScreen.stopSending;
 import static com.esark.excavator.GameScreen.stopSendingBoom;
 import static com.esark.excavator.GameScreen.stopSendingCurl;
+import static com.esark.excavator.GameScreen.stopSendingLeft;
 import static com.esark.excavator.GameScreen.stopSendingOrbit;
+import static com.esark.excavator.GameScreen.stopSendingRight;
 import static com.esark.excavator.GameScreen.stopSendingStick;
 //import static com.esark.excavator.GameScreen.stopSending;
 //import static com.esark.excavator.GameScreen.stopSendingBoom;
@@ -76,10 +79,15 @@ public class ConnectedThread extends Thread {
             }
 
             //Try delays between the characters to make it not jump SystemClock.sleep
-            /////////////////Bucket Curl//////////////////////
-            if(stopSending == 0) {
+
+            if(stopSendingRight == 1){
+                write("*");
+                SystemClock.sleep(10);
+            }
+            else if(stopSendingRight == 0) {
+                /////////////////Bucket Curl//////////////////////
                 returnArray = mIntToChars.IntToCharsMethod(c);      //Send an integer and get three chars in the returnArray as a return value
-                if(stopSendingCurl == 0) {
+                if (stopSendingCurl == 0) {
                     write("c");               //c for curl. Number of pixels in the x-direction
                     write(returnArray[2]);          //d2 (+/-)
                     write(returnArray[1]);          //d1 (Left digit)
@@ -88,21 +96,27 @@ public class ConnectedThread extends Thread {
                 SystemClock.sleep(10);
                 ////////////////Boom//////////////////////////////
                 returnArray = mIntToChars.IntToCharsMethod(b);
-                if(stopSendingBoom == 0) {          //Send an integer and get three chars in the returnArray as a return value
+                if (stopSendingBoom == 0) {          //Send an integer and get three chars in the returnArray as a return value
                     write("b");               //b for boom. Number of pixels in the y-direction
                     write(returnArray[2]);          //d2 (+/-)
                     write(returnArray[1]);          //d1 (Left digit)
                     write(returnArray[0]);          //d2 (Right Digit)
                 }
                 SystemClock.sleep(10);
-                ///////////Rotate//////////////////////////
-                returnArray = mIntToChars.IntToCharsMethod(o);      //Send an integer and get three chars in the returnArray as a return value
-                if(stopSendingOrbit == 0) {
-                    write("o");               //o for rotate. Number of pixels in the x-direction
-                    write(returnArray[2]);          //d2 (+/-)
-                    write(returnArray[1]);          //d1 (Left digit)
-                    write(returnArray[0]);          //d2 (Right Digit)
-                }
+            }
+
+            if(stopSendingLeft == 1){
+                write("#");
+                SystemClock.sleep(10);
+            }
+            ///////////Rotate//////////////////////////
+            returnArray = mIntToChars.IntToCharsMethod(o);      //Send an integer and get three chars in the returnArray as a return value
+            write("o");               //o for rotate. Number of pixels in the x-direction
+            write(returnArray[2]);          //d2 (+/-)
+            write(returnArray[1]);          //d1 (Left digit)
+            write(returnArray[0]);          //d2 (Right Digit)
+
+            if(stopSendingLeft == 0){
                 SystemClock.sleep(10);
                 ////////////////Boom//////////////////////////////
                 returnArray = mIntToChars.IntToCharsMethod(s);
@@ -114,8 +128,18 @@ public class ConnectedThread extends Thread {
                 }
                 SystemClock.sleep(10);
             }
-
-
+            returnArray = mIntToChars.IntToCharsMethod(l);      //Send an integer and get three chars in the returnArray as a return value
+            write("l");               //s for stick. Number of pixels in the y-direction
+            write(returnArray[2]);          //d2 (+/-)
+            write(returnArray[1]);          //d1 (Left digit)
+            write(returnArray[0]);          //d2 (Right Digit)
+            SystemClock.sleep(10);
+            returnArray = mIntToChars.IntToCharsMethod(r);      //Send an integer and get three chars in the returnArray as a return value
+            write("r");               //s for stick. Number of pixels in the y-direction
+            write(returnArray[2]);          //d2 (+/-)
+            write(returnArray[1]);          //d1 (Left digit)
+            write(returnArray[0]);          //d2 (Right Digit)
+            SystemClock.sleep(10);
         }
     }
 
